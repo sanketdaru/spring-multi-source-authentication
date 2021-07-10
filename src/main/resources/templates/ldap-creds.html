@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: headtag"></head>
+
+<body>
+	<nav th:replace="fragments :: navbar"></nav>
+
+	<main role="main" class="container">
+		<h1></h1>
+		
+		<div class="starter-template">
+			<p class="lead">Provide LDAP connection properties to communicate with Active Directory.</p>
+			<form action="#" th:action="@{/ldap-creds}" th:object="${ldapParams}" method="post">
+				<div class="mb-3">
+				  <input type="hidden" class="form-control" id="protocol-input" th:field="*{ldapProtocol}">
+				</div>
+				<div class="mb-3">
+				  <label for="host" class="form-label">LDAP Host</label>
+				  <input type="text" class="form-control" id="host-input" th:field="*{ldapHost}" aria-describedby="host-help" placeholder="Enter LDAP hostname">
+				  <small th:if="${#fields.hasErrors('ldapHost')}" th:errors="*{ldapHost}" class="text-danger"></small>
+				  <small id="host-help" class="form-text text-muted">The hostname of LDAP service.</small>
+				</div>
+				<div class="mb-3">
+				  <label for="port" class="form-label">LDAP Port</label>
+				  <input type="number" class="form-control" id="port-input" th:field="*{ldapPort}" aria-describedby="port-help" placeholder="Enter LDAP port number">
+				  <small th:if="${#fields.hasErrors('ldapPort')}" th:errors="*{ldapPort}" class="text-danger"></small>
+				  <small id="port-help" class="form-text text-muted">The port number of LDAP service.</small>
+				</div>
+				<div class="mb-3">
+				  <label for="domain" class="form-label">Domain</label>
+				  <input type="text" class="form-control" id="domain-input" th:field="*{domainPrefix}" aria-describedby="domain-help" placeholder="Enter domain prefix">
+				  <small th:if="${#fields.hasErrors('domainPrefix')}" th:errors="*{domainPrefix}" class="text-danger"></small>
+				  <small id="domain-help" class="form-text text-muted">The domain name prefix. The one before "\" when you logon to a Windows domain.</small>
+				</div>
+				<div class="mb-3">
+				  <label for="admin" class="form-label">Admin Username</label>
+				  <input type="text" class="form-control" id="admin-input" th:field="*{ldapAdminUser}" aria-describedby="admin-help" placeholder="Enter the admin username">
+				  <small th:if="${#fields.hasErrors('ldapAdminUser')}" th:errors="*{ldapAdminUser}" class="text-danger"></small>
+				  <small id="admin-help" class="form-text text-muted">Username of the admin to access LDAP.</small>
+				</div>
+				<div class="mb-3">
+				  <label for="pass" class="form-label">Admin Password</label>
+				  <input type="password" class="form-control" id="pass-input" th:field="*{ldapAdminPass}" aria-describedby="pass-help" placeholder="Enter the admin password">
+				  <small th:if="${#fields.hasErrors('ldapAdminPass')}" th:errors="*{ldapAdminPass}" class="text-danger"></small>
+				  <small id="pass-help" class="form-text text-muted">Password of the admin user.</small>
+				</div>
+				<div class="mb-3">
+				  <label for="group-search" class="form-label">LDAP Directory Search Base</label>
+				  <input type="text" class="form-control" id="group-search-input" th:field="*{ldapSearchBase}" aria-describedby="group-search-help" placeholder="Enter the search base to find users and groups">
+				  <small th:if="${#fields.hasErrors('ldapSearchBase')}" th:errors="*{ldapSearchBase}" class="text-danger"></small>
+				  <small id="group-search-help" class="form-text text-muted">Search base to find users and groups (OU's and Security Groups). Ex: DC=child-domain,DC=top-domain</small>
+				</div>
+				<div class="mb-3">
+				  <label for="userlogin-search" class="form-label">Authorized Users Search Base</label>
+				  <input type="text" class="form-control" id="userlogin-search-input" th:field="*{authorizedUsersSearchBase}" aria-describedby="userlogin-search-help">
+				  <small th:if="${#fields.hasErrors('authorizedUsersSearchBase')}" th:errors="*{authorizedUsersSearchBase}" class="text-danger"></small>
+				  <small id="userlogin-search-help" class="form-text text-muted">Search base to authenticate users to access this app. Ex: CN=My App Users,DC=child-domain,DC=top-domain</small>
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="reset" class="btn btn-danger">Reset</button>
+			</form>
+		</div>
+
+	</main>
+
+	<footer th:replace="fragments :: footer"></footer>
+	
+</body>
+</html>

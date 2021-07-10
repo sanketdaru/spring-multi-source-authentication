@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: headtag"></head>
+
+<body>
+	<link rel="stylesheet" 
+			href="https://cdnjs.cloudflare.com/ajax/libs/jquery-treetable/3.2.0/css/jquery.treetable.min.css" 
+			integrity="sha512-rzpvh46q/W37FDIdBxK79gy/fWoZWQiwUUQOCGm58XKsdVAjtYK1TZ4nSbLZWbqiS3hxsw3Dg/E67BOQbaEs5g==" 
+			crossorigin="anonymous" 
+			referrerpolicy="no-referrer" />
+			
+	<link rel="stylesheet" 
+			href="https://cdnjs.cloudflare.com/ajax/libs/jquery-treetable/3.2.0/css/jquery.treetable.theme.default.min.css" 
+			integrity="sha512-+QlAY2+q9M7bP5NBnGKrBO5u/asZTHsHJ8yVvw/opoi50KZube+tfc3ojM5MHa0d+vTorqu3Mf/IKyTyxWWbzg==" 
+			crossorigin="anonymous" 
+			referrerpolicy="no-referrer" />
+	
+	<nav th:replace="fragments :: navbar"></nav>
+
+	<main role="main" class="container">
+		
+		<div class="starter-template">
+			<h1></h1>
+			<h2>Here are the OU's/Groups that are available in Active Directory.</h2>
+			<table id="adTree" class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Distinguished Name</th>
+						<th scope="col">Type</th>
+						<th scope="col">Created At</th>
+						<th scope="col">Updated At</th>
+					</tr>
+				</thead>
+	
+				<tbody>
+					<tr th:each="ldapGroup : ${ldapGroups}" th:data-tt-id="${ldapGroup.dn}" th:data-tt-parent-id="${ldapGroup.parentDn}">
+						<td th:text="${ldapGroup.name}"></td>
+						<td th:text="${ldapGroup.dn}"></td>
+						<td th:text="${ldapGroup.type}"></td>
+						<td th:text="${ldapGroup.createdAt}"></td>
+						<td th:text="${ldapGroup.updatedAt}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</main>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" 
+			integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" 
+			crossorigin="anonymous" 
+			referrerpolicy="no-referrer">
+	</script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-treetable/3.2.0/jquery.treetable.min.js" 
+			integrity="sha512-2pYVakljd2zLnVvVC264Ib+XGvOvu3iFyKCIwLzn77mfbjuVi1dGJUxGjDAI8MjgPgTfSIM/vZirW04LCQmY2Q==" 
+			crossorigin="anonymous" 
+			referrerpolicy="no-referrer">
+	</script>
+	
+	<script type="text/javascript">
+	    $(document).ready(function () {
+	    	$("#adTree").treetable({
+                expandable: true,
+                initialState: "collapsed",
+                clickableNodeNames: true,
+                indent: 10
+            });
+	    });
+	</script>
+	
+	<footer th:replace="fragments :: footer"></footer>
+			
+</body>
+</html>
