@@ -71,7 +71,7 @@ public class MultiSourceUserDetailsService implements UserDetailsService {
 		StringBuilder builder = new StringBuilder();
 		builder.append("(& ");
 		builder.append("(objectclass=organizationalPerson)");
-		builder.append("(sAMAccountName={0})");
+		builder.append("(userPrincipalName={0})");
 		builder.append("(memberOf=");
 		builder.append(ldapConfig.getAuthorizedUsersSearchBase());
 		builder.append(")");

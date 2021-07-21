@@ -52,7 +52,9 @@ public class MultiSourceAuthenticationProvider implements AuthenticationProvider
 		DefaultLdapAuthoritiesPopulator authoritiesPopulator = new DefaultLdapAuthoritiesPopulator(ldapContextSource, "");
 		authoritiesPopulator.setIgnorePartialResultException(true);
 		authoritiesPopulator.setConvertToUpperCase(true);
+		authoritiesPopulator.setSearchSubtree(true);
 		authoritiesPopulator.setGroupSearchFilter("(& (objectclass=group) (member={0}))");
+		
 		
 		this.ldapAuthenticationProvider = new LdapAuthenticationProvider(this.bindAuthenticator, authoritiesPopulator);
 	}
@@ -61,7 +63,7 @@ public class MultiSourceAuthenticationProvider implements AuthenticationProvider
 		StringBuilder builder = new StringBuilder();
 		builder.append("(& ");
 		builder.append("(objectclass=organizationalPerson)");
-		builder.append("(sAMAccountName={0})");
+		builder.append("(userPrincipalName={0})");
 		builder.append("(memberOf=");
 		builder.append(ldapConfig.getAuthorizedUsersSearchBase());
 		builder.append(")");
